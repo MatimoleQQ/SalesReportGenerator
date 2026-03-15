@@ -91,31 +91,25 @@ project/
 
 Instrukcja użycia
 
-Instalacja zależności:
-
-pip install -r requirements.txt
-
-Konfiguracja Gmail API:
-
-Umieść swój client_secret.json w folderze secret/
-
-Utwórz config.json w folderze config/ z adresem nadawcy:
-
+- Instalacja zależności:
+  pip install -r requirements.txt
+- Konfiguracja Gmail API:
+  Umieść swój client_secret.json w folderze secret/
+- Utwórz config.json w folderze config/ z adresem nadawcy:
 {
 "sender_email": "twoj.email@gmail.com"
 }
-
-Uruchom GUI:
+- Uruchom GUI:
 
 python gui/dashboard.py
 
-Wybór pliku Excel:
+- Wybór pliku Excel:
 
 Kliknij „Wybierz plik” lub przeciągnij plik Excel do okna
 
 Sprawdź podstawowe statystyki w panelu informacyjnym
 
-Generowanie PDF:
+- Generowanie PDF:
 
 Kliknij „Generuj PDF” → raport zostanie wygenerowany i wysłany mailem
 
@@ -123,7 +117,7 @@ Wymagania
 
 Python >= 3.10
 
-Biblioteki Python:
+- Biblioteki Python:
 
 pandas
 matplotlib
