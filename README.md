@@ -66,17 +66,29 @@ project/
 │ └── raport_generator.py # logika PDF, Excel, wysyłka mail
 
 ├── gui/
+
 │ └── dashboard.py # interfejs graficzny
+
 ├── config/
+
 │ └── config.json # konfiguracja konta e-mail
+
 ├── secret/
+
 │ ├── client_secret.json # klucze Gmail API (NIE WCHODZI DO GIT)
+
 │ └── token.json # token autoryzacji Gmail
+
 ├── font/
+
 │ ├── DejaVuSans.ttf
+
 │ └── DejaVuSans-Bold.ttf
+
 ├── README.md
+
 └── requirements.txt # wszystkie paczki Python
+
 
 Instrukcja użycia
 
