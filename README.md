@@ -92,13 +92,13 @@ project/
 Instrukcja użycia
 
 - Instalacja zależności:
-  pip install -r requirements.txt
+ -  pip install -r requirements.txt
 - Konfiguracja Gmail API:
-  Umieść swój client_secret.json w folderze secret/
+ -  Umieść swój client_secret.json w folderze secret/
 - Utwórz config.json w folderze config/ z adresem nadawcy:
-{
-"sender_email": "twoj.email@gmail.com"
-}
+    {
+    "sender_email": "twoj.email@gmail.com"
+    }
 - Uruchom GUI:
 
 python gui/dashboard.py
