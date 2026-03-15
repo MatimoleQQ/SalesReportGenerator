@@ -58,9 +58,13 @@ Wysyłka maili: Gmail API (google-auth, google-api-python-client)
 JSON: konfiguracja i przechowywanie sekretów (client_secret.json, config.json)
 
 Struktura projektu
+
 project/
+
 ├── src/
+
 │ └── raport_generator.py # logika PDF, Excel, wysyłka mail
+
 ├── gui/
 │ └── dashboard.py # interfejs graficzny
 ├── config/
