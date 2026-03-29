@@ -1,5 +1,7 @@
 # Pliki z kluczami i tokenami
 client_secret.json
+openAi_api_secret.json
 token.json
 config.json
-*.env
+*.
+venv
