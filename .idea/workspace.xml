@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14808395-20dc-4840-85fb-41d8308e4b20" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ProjektyPodSPrzedazRaporty.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ProjektyPodSPrzedazRaporty.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raport_sprzedazy.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/secret/openAi_api_secret.json" beforeDir="false" afterPath="$PROJECT_DIR$/secret/openAi_api_secret.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secret/openai_api_secret_example.json" beforeDir="false" afterPath="$PROJECT_DIR$/secret/openai_api_secret_example.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raport_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raport_generator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
