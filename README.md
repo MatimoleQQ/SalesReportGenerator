@@ -1,7 +1,7 @@
 Generator Raportu Sprzedaży 📊🖨️
 
 Aplikacja w Pythonie do automatyzacji procesu tworzenia raportów sprzedaży w formacie Excel → PDF z możliwością wysyłki mailowej.
-Umożliwia szybkie podsumowanie danych sprzedażowych, generowanie wykresów, tabel i przesłanie raportu automatycznie.
+Umożliwia szybkie podsumowanie danych sprzedażowych, generowanie wykresów, tabel i przesłanie raportu automatycznie oraz automatyczne generowanie wnioskow sprzedażowych.
 
 Funkcjonalności:
 - Wczytywanie danych sprzedażowych z pliku Excel (.xlsx / .xls)
@@ -26,6 +26,8 @@ Funkcjonalności:
 
 - Drag & Drop plików Excel do aplikacji GUI
 
+- Automatycznie generowane wnioski przez sztuczną inteligencję
+
 Zrzuty ekranu
 
 - GUI aplikacji:
@@ -39,6 +41,10 @@ Zrzuty ekranu
 - Wykres sprzedaży:
 
 ![Wykres sprzedaży](images/excel.png)
+
+-Wnioski AI:
+
+![Wnioski AI](images/wnioskiAi.png)
 
 Technologie
 
