@@ -18,6 +18,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 from email.mime.text import MIMEText
+from openai import OpenAI
+import re
 
 
 def wyslij_raport(pdf_path, app_password=None):
@@ -99,9 +101,6 @@ def generuj_pdf(excel_path):
 
 
 
-
-
-
     # ===== 2. Wczytanie danych z Excela =====
     df = pd.read_excel(excel_path)
     print("\nPierwsze 5 wierszy danych:")
@@ -116,6 +115,46 @@ def generuj_pdf(excel_path):
     grupa_produkt = df.groupby('Produkt')[['Ilość', 'Przychód']].sum()
     print("\nSprzedaż po produktach:")
     print(grupa_produkt)
+
+    # ===== AI Update Insights =====
+    # wczytanie klucza z pliku
+    with open("../secret/openAi_api_secret.json") as f:
+        config = json.load(f)
+
+    api_key = config["openai_api"]
+
+    # inicjalizacja klienta
+    client = OpenAI(api_key=api_key)
+
+    data_summary = df.describe().to_string()
+
+    prompt = f"""
+    You are a business analyst.
+
+    Analyze the following sales data summary and provide:
+    - 3 key insights
+    - trends
+    - recommendations
+
+    DATA:
+    {data_summary}
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",  # zamiast "gpt-4"
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    ai_insights = response.choices[0].message.content
+    print(ai_insights)
+
+    # with open("../keyInsights.txt", "r", encoding="utf-8") as f:
+    #     ai_insights = f.read()
+    #
+    # print(ai_insights)
+
+
+
 
     # ===== 4. Tworzenie wykresu =====
     plt.figure(figsize=(10,6))  # większy wykres
@@ -173,10 +212,58 @@ def generuj_pdf(excel_path):
         pdf.cell(50, 10, str(row['Przychód']), 1)
         pdf.ln()
 
+    #Dodawanie czesci z insightamiAI
+    pdf.add_page()
+
+    # 🔹 tytuł główny
+    pdf.set_font("helvetica", "B", 18)
+    pdf.cell(0, 12, "Wnioski", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    # 🔹 linia separatora
+    pdf.set_draw_color(0, 0, 0)
+    pdf.set_line_width(0.5)
+    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
+
+    pdf.ln(8)
+
+    # 🔹 wczytanie AI insights z pliku
+    with open("../keyInsights.txt", "r", encoding="utf-8") as f:
+        ai_insights = f.read()
+
+    # 🔹 podział na linie (żeby zrobić sekcje)
+    lines = ai_insights.split("\n")
+
+    # 🔹 styl treści
+    pdf.set_font("helvetica", size=12)
+
+    for line in lines:
+        line = line.strip()
+
+        if not line:
+            pdf.ln(2)
+            continue
+
+        # 🔹 czyszczenie
+        line = " ".join(line.split())
+
+        # 🔹 nagłówki
+        if ":" in line and len(line) < 60:
+            pdf.ln(3)
+            pdf.set_font("DejaVu", "B", 12)
+            pdf.set_x(10)  # 🔥 reset pozycji
+            pdf.cell(0, 8, line)
+            pdf.ln()
+            pdf.set_font("DejaVu", size=12)
+
+
+        else:
+            pdf.set_x(10)  # 🔥 KLUCZOWE
+            pdf.multi_cell(0, 8, f"- {line}")
+
     # Zapis PDF
     pdf.output(nazwa_pliku_pdf)
     print("\nPDF 'raport_sprzedaz.pdf' został wygenerowany!")
-    wyslij_raport("raport_sprzedazy.pdf")
+    # wyslij_raport("raport_sprzedazy.pdf")
     return nazwa_pliku_pdf
 if __name__ == '__main__':
-    wyslij_raport("../raport_sprzedazy.pdf")
+    generuj_pdf("../sprzedaz_przyklad.xlsx")
+#   wyslij_raport("../raport_sprzedazy.pdf")

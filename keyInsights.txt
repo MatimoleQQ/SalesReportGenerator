@@ -1,0 +1,14 @@
+Kluczowe wnioski:
+1. Średnia liczba sprzedanych jednostek na transakcję wynosi około 9,78, przy średniej cenie 28,28 USD za jednostkę, co daje średni przychód na poziomie 268,22 USD na transakcję.
+2. Dane sprzedażowe wykazują duże zróżnicowanie — od sprzedaży 1 jednostki za 10 USD do 20 jednostek po 49 USD, co daje maksymalny przychód na poziomie 920 USD.
+3. Odchylenie standardowe dla liczby sprzedanych jednostek i przychodu wskazuje na wysoką zmienność wyników sprzedażowych pomiędzy transakcjami.
+
+Trendy:
+1. Występuje dodatnia korelacja między liczbą sprzedanych jednostek a przychodem, co jest naturalne. Jednocześnie dane sugerują, że wyższa cena jednostkowa nie zawsze przekłada się na wyższy przychód, co widać po dużym rozrzucie cen i wyników sprzedaży.
+2. Mediany dla liczby sprzedanych jednostek, ceny i przychodu są zbliżone do wartości z 25. i 75. percentyla, co wskazuje na stosunkowo symetryczny rozkład danych sprzedażowych.
+3. Maksymalny przychód (920 USD) jest znacząco wyższy niż średni (268,22 USD), co sugeruje, że pojedyncze bardzo dobre transakcje znacząco zawyżają średnią.
+
+Rekomendacje:
+1. Przeprowadzić szczegółową analizę, aby zidentyfikować czynniki wpływające na najbardziej dochodowe transakcje i sprawdzić, czy można je powielić w innych przypadkach.
+2. Przetestować różne strategie cenowe, aby zoptymalizować ceny jednostkowe i maksymalizować przychód przy zachowaniu konkurencyjności.
+3. Wdrożyć system monitorowania wyników sprzedaży, który pozwoli analizować zmienność oraz identyfikować trendy i wzorce wspierające podejmowanie decyzji biznesowych.
