@@ -76,7 +76,7 @@ Excel File → Data Analysis → PDF Report → AWS S3 Upload → Presigned URL 
 
 ### 🖥️ GUI Application
 
-![GuiAplication](gimages/Gui.gif)
+![GuiAplication](gimages/gui.gif)
 
 ### 📄 Generated PDF Report
 
@@ -88,7 +88,7 @@ Excel File → Data Analysis → PDF Report → AWS S3 Upload → Presigned URL 
 
 ### ☁️ AWS S3 Link Popup (NEW)
 
-![AWS Link Popup](images/PopupWithLink.png
+![AWS Link Popup](images/PopupWithLink.png)
 
 - Copy link to clipboard
 - Open report directly in browser *Add screenshot: screenshots/s3\_popup.png*
@@ -110,7 +110,40 @@ Excel File → Data Analysis → PDF Report → AWS S3 Upload → Presigned URL 
 
 ## 📁 Project Structure
 ```
-project/ ├── src/ │   └── raport\_generator.py        # PDF generation + AWS upload ├── gui/ │   └── dashboard.py               # Tkinter GUI ├── config/ │   └── config.json                # AWS + app configuration ├── secret/ │   ├── client\_secret.json         # Gmail API credentials (ignored in Git) │   └── token.json                 # OAuth token ├── font/ │   ├── DejaVuSans.ttf │   └── DejaVuSans-Bold.ttf ├── screenshots/ │   ├── gui.png │   ├── pdf\_report.png │   ├── chart.png │   └── s3\_popup.png ├── README.md └── requirements.txt
+SalesReportGenerator/
+│
+├── src/
+│   ├── raport_generator.py        # core logic: Excel → PDF, AWS upload, email sending
+│   └── aws_uploader.py            # (optional) S3 upload logic separated from main flow
+│
+├── gui/
+│   └── dashboard.py               # Tkinter GUI (drag & drop, file selection, stats panel)
+│
+├── config/
+│   └── config.json                # application configuration (NO AWS secrets stored here)
+│
+├── secret/                        # NOT TRACKED BY GIT
+│   ├── client_secret.json         # Gmail API OAuth credentials
+│   └── token.json                # generated authentication token
+│
+├── font/
+│   ├── DejaVuSans.ttf
+│   └── DejaVuSans-Bold.ttf
+│
+├── data/
+│   └── sales_sample.xlsx          # sample input dataset
+│
+├── output/
+│   ├── sales_report.pdf           # generated PDF report
+│   └── sales_chart.png            # sales visualization chart
+│
+├── logs/
+│   ├── invoice_log.csv            # optional Gmail download logs
+│   └── processed_uids.txt         # processed email tracking
+│
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 ---
 
