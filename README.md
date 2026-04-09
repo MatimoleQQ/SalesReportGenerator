@@ -1,12 +1,9 @@
 # 📊 Generator Raportu Sprzedaży
 
-<<<<<<< HEAD
 Aplikacja w Pythonie do automatyzacji procesu tworzenia raportów sprzedaży w formacie Excel → PDF z możliwością wysyłki mailowej.
 Umożliwia szybkie podsumowanie danych sprzedażowych, generowanie wykresów, tabel i przesłanie raportu automatycznie oraz automatyczne generowanie wnioskow sprzedażowych.
 =======
 A Python-based automation tool that transforms Excel sales data into a professional PDF report, enriches it with charts and insights, and uploads it to AWS S3 with secure access via a presigned URL. The application includes a graphical user interface with drag & drop support and an interactive link popup for easy report access.
->>>>>>> 30eea5f (updated AWS Readme)
-
 ---
 
 ## 🚀 Features
@@ -39,8 +36,6 @@ A Python-based automation tool that transforms Excel sales data into a professio
 - Temporary secure download links (expiry-based access)
 
 ---
-
-<<<<<<< HEAD
 - Automatycznie generowane wnioski przez sztuczną inteligencję
 
 Zrzuty ekranu
@@ -67,7 +62,7 @@ Zrzuty ekranu
 
 ## 🧠 Workflow
 
-<<<<<<< HEAD
+
 -Wnioski AI:
 
 ![Wnioski AI](images/wnioskiAi.png)
@@ -75,7 +70,6 @@ Zrzuty ekranu
 Technologie
 =======
 Excel File → Data Analysis → PDF Report → AWS S3 Upload → Presigned URL → GUI Popup Link
->>>>>>> 30eea5f (updated AWS Readme)
 
 ---
 
