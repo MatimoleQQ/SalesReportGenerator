@@ -41,7 +41,6 @@ A Python-based automation tool that transforms Excel sales data into a professio
 Zrzuty ekranu
 =======
 ### 🖥️ GUI Application
->>>>>>> 30eea5f (updated AWS Readme)
 
 - Built with `Tkinter + TkinterDnD2`
 - Drag & Drop Excel file support
@@ -77,19 +76,19 @@ Excel File → Data Analysis → PDF Report → AWS S3 Upload → Presigned URL 
 
 ### 🖥️ GUI Application
 
-*Add screenshot: screenshots/gui.png*
+![GuiAplication](gimages/Gui.gif)
 
 ### 📄 Generated PDF Report
 
-*Add screenshot: screenshots/pdf\_report.png*
+![GeneratedPDF Report ](images/wykrespdf.png)
 
 ### 📊 Sales Chart
 
-*Add screenshot: screenshots/chart.png*
+![Excel AI](images/excel.png)
 
 ### ☁️ AWS S3 Link Popup (NEW)
 
-Interactive popup allowing:
+![AWS Link Popup](images/PopupWithLink.png
 
 - Copy link to clipboard
 - Open report directly in browser *Add screenshot: screenshots/s3\_popup.png*
@@ -110,9 +109,9 @@ Interactive popup allowing:
 ---
 
 ## 📁 Project Structure
-
+```
 project/ ├── src/ │   └── raport\_generator.py        # PDF generation + AWS upload ├── gui/ │   └── dashboard.py               # Tkinter GUI ├── config/ │   └── config.json                # AWS + app configuration ├── secret/ │   ├── client\_secret.json         # Gmail API credentials (ignored in Git) │   └── token.json                 # OAuth token ├── font/ │   ├── DejaVuSans.ttf │   └── DejaVuSans-Bold.ttf ├── screenshots/ │   ├── gui.png │   ├── pdf\_report.png │   ├── chart.png │   └── s3\_popup.png ├── README.md └── requirements.txt
-
+```
 ---
 
 ## ⚙️ Installation
