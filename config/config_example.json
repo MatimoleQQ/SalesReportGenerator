@@ -1,4 +1,9 @@
 {
 "sender_email": "yourEmail@gmail.com",
-"receiver_email" : "BossEmail@gmail.com"
+"receiver_email" : "BossEmail@gmail.com",
+"access_key": "777AZXVPWGKFSX2ZR777",
+"secret_key": "Jtz9+Lj9P8WNvlpqwC0zlasdEKUH4jTcM76j8Rb6I",
+"bucket_name": "sales-generator",
+"file_name_pdf": "raport_sprzedazy.pdf",
+"pdf_path": "raport_sprzedazy.pdf"
 }

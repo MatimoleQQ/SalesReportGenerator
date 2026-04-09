@@ -4,6 +4,7 @@ import os.path
 import pandas as pd
 import json
 import matplotlib.pyplot as plt
+from botocore.exceptions import NoCredentialsError
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 import yagmail
@@ -20,6 +21,9 @@ from email import encoders
 from email.mime.text import MIMEText
 from openai import OpenAI
 import re
+import boto3
+
+
 
 
 def wyslij_raport(pdf_path, app_password=None):
@@ -28,14 +32,18 @@ def wyslij_raport(pdf_path, app_password=None):
 
     with open("../config/config.json") as json_file:
         config = json.load(json_file)
+
     sender_email = config["sender_email"]
     receiver_email = config["sender_email"]
 
     print(sender_email, receiver_email)
 
+
+
+
+
     SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
-    # Plik z Twoim Client ID i Client Secret
     CLIENT_SECRET_FILE = '../secret/client_secret.json'
 
     creds = None
@@ -80,7 +88,7 @@ def wyslij_raport(pdf_path, app_password=None):
 
 
 def generuj_pdf(excel_path):
-    nazwa_pliku_pdf = "raport_sprzedazy.pdf"
+
     # # ===== 1. Tworzymy przykładowy plik Excel =====
     # produkty = ['Klawiatura', 'Myszka', 'Router', 'Laptop','Komputer','Pendrive']
     # start_date = datetime(2026, 1, 1)
@@ -116,42 +124,42 @@ def generuj_pdf(excel_path):
     print("\nSprzedaż po produktach:")
     print(grupa_produkt)
 
-    # ===== AI Update Insights =====
-    # wczytanie klucza z pliku
-    with open("../secret/openAi_api_secret.json") as f:
-        config = json.load(f)
-
-    api_key = config["openai_api"]
-
-    # inicjalizacja klienta
-    client = OpenAI(api_key=api_key)
-
-    data_summary = df.describe().to_string()
-
-    prompt = f"""
-    You are a business analyst.
-
-    Analyze the following sales data summary and provide:
-    - 3 key insights
-    - trends
-    - recommendations
-
-    DATA:
-    {data_summary}
-    """
-
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",  # zamiast "gpt-4"
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    ai_insights = response.choices[0].message.content
-    print(ai_insights)
-
-    # with open("../keyInsights.txt", "r", encoding="utf-8") as f:
-    #     ai_insights = f.read()
+    # # ===== 3.5 AI Update Insights =====
+    # # wczytanie klucza z pliku
+    # with open("../secret/openAi_api_secret.json") as f:
+    #     config = json.load(f)
     #
+    # api_key = config["openai_api"]
+    #
+    # # inicjalizacja klienta
+    # client = OpenAI(api_key=api_key)
+    #
+    # data_summary = df.describe().to_string()
+    #
+    # prompt = f"""
+    # You are a business analyst.
+    #
+    # Analyze the following sales data summary and provide:
+    # - 3 key insights
+    # - trends
+    # - recommendations
+    #
+    # DATA:
+    # {data_summary}
+    # """
+    #
+    # response = client.chat.completions.create(
+    #     model="gpt-3.5-turbo",  # zamiast "gpt-4"
+    #     messages=[{"role": "user", "content": prompt}]
+    # )
+    #
+    # ai_insights = response.choices[0].message.content
     # print(ai_insights)
+
+    with open("../keyInsights.txt", "r", encoding="utf-8") as f:
+        ai_insights = f.read()
+
+    print(ai_insights)
 
 
 
@@ -259,11 +267,61 @@ def generuj_pdf(excel_path):
             pdf.set_x(10)  # 🔥 KLUCZOWE
             pdf.multi_cell(0, 8, f"- {line}")
 
+
     # Zapis PDF
-    pdf.output(nazwa_pliku_pdf)
-    print("\nPDF 'raport_sprzedaz.pdf' został wygenerowany!")
+    with open("../config/config.json") as json_file:
+        config = json.load(json_file)
+
+    pdf_file_name = config["file_name_pdf"]
+    pdf.output(pdf_file_name)
+
+    print("\nPDF  " + pdf_file_name + " został wygenerowany!")
     # wyslij_raport("raport_sprzedazy.pdf")
-    return nazwa_pliku_pdf
+    upload_to_s3()
+    return pdf_file_name
+
+def upload_to_s3():
+    with open("../config/config.json") as json_file:
+        config = json.load(json_file)
+    pdf_path = config["pdf_path"]
+    pdf_file_name = config["file_name_pdf"]
+    ACCESS_KEY = config["access_key"]
+    SECRET_KEY = config["secret_key"]
+    BUCKET_NAME = config["bucket_name"]
+
+    # Połączenie z S3
+    s3_client = boto3.client(
+        "s3",
+        region_name="eu-north-1",
+        aws_access_key_id=ACCESS_KEY,
+        aws_secret_access_key=SECRET_KEY
+    )
+
+    try:
+        # Upload pliku
+        s3_client.upload_file(pdf_path, BUCKET_NAME, pdf_file_name)
+        print(f"Upload successful! File uploaded to bucket: {BUCKET_NAME}")
+
+    except FileNotFoundError:
+        print("The file was not found")
+    except NoCredentialsError:
+        print("Credentials not available")
+    except Exception as e:
+        print("Błąd uploadu:", e)
+    # Generowanie tymczasowego linku na 1 godzinę
+    try:
+        url = s3_client.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': BUCKET_NAME, 'Key': pdf_file_name},
+            ExpiresIn=3600
+        )
+        return url
+    except Exception as e:
+        print("Błąd przy generowaniu presigned URL:", e)
+        return None
+
+
 if __name__ == '__main__':
     generuj_pdf("../sprzedaz_przyklad.xlsx")
+    upload_to_s3()
 #   wyslij_raport("../raport_sprzedazy.pdf")

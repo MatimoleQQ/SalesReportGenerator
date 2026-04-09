@@ -3,9 +3,68 @@ import pandas as pd
 import tkinter as tk
 from tkinter import messagebox, filedialog
 from tkinterdnd2 import DND_FILES, TkinterDnD
-from src.raport_generator import generuj_pdf
+from src.raport_generator import generuj_pdf,upload_to_s3
+import webbrowser
+import pyperclip
 
 # ===== Funkcje =====
+def show_link_popup(url):
+    win = tk.Toplevel(root)
+    win.title("Link do pliku")
+    win.geometry("420x180")
+    win.resizable(False, False)
+
+    tk.Label(win, text="Twój raport jest gotowy!", font=("Arial", 12, "bold")).pack(pady=10)
+
+    tk.Label(win, text="Co chcesz zrobić z linkiem?", font=("Arial", 10)).pack(pady=5)
+
+    def copy_link():
+        root.clipboard_clear()
+        root.clipboard_append(url)
+        root.update()
+        tk.Label(win, text="Skopiowano do schowka ✔", fg="green").pack()
+
+    def open_link():
+        webbrowser.open(url)
+
+    tk.Button(win, text="📋 Skopiuj link", command=copy_link,
+              bg="#4CAF50", fg="white").pack(pady=5)
+
+    tk.Button(win, text="🌐 Otwórz link", command=open_link,
+              bg="#2196F3", fg="white").pack(pady=5)
+
+    tk.Button(win, text="❌ Zamknij", command=win.destroy,
+              bg="#f44336", fg="white").pack(pady=5)
+def pokaz_link():
+    # Generowanie presigned URL
+    url = upload_to_s3()
+
+    if url:
+        # Wyświetlenie linku w messagebox z możliwością skopiowania
+        messagebox.showinfo("Link do pliku", f"Presigned URL:\n{url}\n\n(Link można skopiować)")
+        pyperclip.copy(url)  # link trafia od razu do schowka
+    else:
+        messagebox.showerror("Błąd", "Nie udało się wygenerować linku do pliku.")
+
+def pokaz_custom_messagebox(pdf_url):
+    win = tk.Toplevel(root)
+    win.title("PDF wygenerowany!")
+    win.geometry("400x150")
+    win.resizable(False, False)
+
+    tk.Label(win, text="PDF został wygenerowany!", font=("Arial", 12)).pack(pady=(20, 10))
+
+    # Przycisk otwierający link
+    tk.Button(win, text="Wyświetl link do pliku",
+              font=("Arial", 11),
+              bg="#2196F3", fg="white",
+              command=lambda: webbrowser.open(pdf_url)).pack(pady=5)
+
+    # Przycisk zamykający okno
+    tk.Button(win, text="Zamknij",
+              font=("Arial", 11),
+              command=win.destroy).pack(pady=5)
+
 def ustaw_plik(path):
     entry_file.config(state='normal')
     entry_file.delete(0, tk.END)
@@ -45,7 +104,8 @@ def generuj():
         return
     try:
         pdf_name = generuj_pdf(excel_path)
-        messagebox.showinfo("Sukces", f"PDF wygenerowany: {pdf_name}")
+        presigned_url = upload_to_s3()
+        show_link_popup(presigned_url)
     except Exception as e:
         messagebox.showerror("Błąd", str(e))
 
