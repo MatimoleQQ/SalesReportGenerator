@@ -1,136 +1,197 @@
-Generator Raportu Sprzedaży 📊🖨️
+# 📊 Generator Raportu Sprzedaży
 
+<<<<<<< HEAD
 Aplikacja w Pythonie do automatyzacji procesu tworzenia raportów sprzedaży w formacie Excel → PDF z możliwością wysyłki mailowej.
 Umożliwia szybkie podsumowanie danych sprzedażowych, generowanie wykresów, tabel i przesłanie raportu automatycznie oraz automatyczne generowanie wnioskow sprzedażowych.
+=======
+A Python-based automation tool that transforms Excel sales data into a professional PDF report, enriches it with charts and insights, and uploads it to AWS S3 with secure access via a presigned URL. The application includes a graphical user interface with drag & drop support and an interactive link popup for easy report access.
+>>>>>>> 30eea5f (updated AWS Readme)
 
-Funkcjonalności:
-- Wczytywanie danych sprzedażowych z pliku Excel (.xlsx / .xls)
+---
 
-- Wyświetlanie podstawowych statystyk:
+## 🚀 Features
 
-- Liczba wierszy w danych
+### 📥 Data Processing
 
-- Liczba unikalnych produktów
+- Load sales data from Excel (`.xlsx / .xls`)
+- Automatic calculation of:
+  - Total number of rows
+  - Number of unique products
+  - Total units sold
+  - Total revenue
 
-- Suma sprzedanych sztuk
+---
 
-- Suma przychodów
+### 📊 Report Generation
 
-- Generowanie PDF z podsumowaniem i wykresem sprzedaży
+- PDF report generation using `FPDF`
+- Automatic bar chart visualization (`matplotlib`)
+- Product-level sales table
+- AI-ready section for business insights (optional integration)
 
-- Automatyczne tworzenie wykresu sprzedaży po produktach (bar chart)
+---
 
-- Dodawanie tabeli sprzedaży do PDF
+### ☁️ AWS Cloud Integration
 
-- Możliwość wysyłki raportu mailem przez Gmail API
+- Upload generated PDF to **Amazon S3**
+- Secure file access using **Presigned URLs**
+- No need for public bucket exposure
+- Temporary secure download links (expiry-based access)
 
-- Drag & Drop plików Excel do aplikacji GUI
+---
 
+<<<<<<< HEAD
 - Automatycznie generowane wnioski przez sztuczną inteligencję
 
 Zrzuty ekranu
+=======
+### 🖥️ GUI Application
+>>>>>>> 30eea5f (updated AWS Readme)
 
-- GUI aplikacji:
+- Built with `Tkinter + TkinterDnD2`
+- Drag & Drop Excel file support
+- Real-time data summary dashboard
+- Interactive popup with:
+  - 📋 Copy link
+  - 🌐 Open in browser
+  - ❌ Close window
 
-![GUI aplikacji](images/gui.gif)
+---
 
-- Przykładowy PDF:
+### 📧 Email Integration (Optional)
 
-![PDF raportu](images/wykrespdf.png)
+- Gmail API support for automatic report delivery
+- OAuth 2.0 authentication (secure token-based login)
 
-- Wykres sprzedaży:
+---
 
-![Wykres sprzedaży](images/excel.png)
+## 🧠 Workflow
 
+<<<<<<< HEAD
 -Wnioski AI:
 
 ![Wnioski AI](images/wnioskiAi.png)
 
 Technologie
+=======
+Excel File → Data Analysis → PDF Report → AWS S3 Upload → Presigned URL → GUI Popup Link
+>>>>>>> 30eea5f (updated AWS Readme)
 
-Python 3.14+
+---
 
-GUI: Tkinter + TkinterDnD2 (Drag & Drop)
+## 🖼️ Screenshots
 
-Manipulacja danymi: pandas
+### 🖥️ GUI Application
 
-Tworzenie PDF: fpdf
+*Add screenshot: screenshots/gui.png*
 
-Tworzenie wykresów: matplotlib
+### 📄 Generated PDF Report
 
-Wysyłka maili: Gmail API (google-auth, google-api-python-client)
+*Add screenshot: screenshots/pdf\_report.png*
 
-JSON: konfiguracja i przechowywanie sekretów (client_secret.json, config.json)
+### 📊 Sales Chart
 
-Struktura projektu
+*Add screenshot: screenshots/chart.png*
 
-project/
+### ☁️ AWS S3 Link Popup (NEW)
 
-├── src/
+Interactive popup allowing:
 
-│ └── raport_generator.py # logika PDF, Excel, wysyłka mail
+- Copy link to clipboard
+- Open report directly in browser *Add screenshot: screenshots/s3\_popup.png*
 
-├── gui/
+---
 
-│ └── dashboard.py # interfejs graficzny
+## 🧰 Technologies
 
-├── config/
+- Python 3.10+
+- Tkinter + TkinterDnD2 (GUI + Drag & Drop)
+- pandas (data processing)
+- matplotlib (data visualization)
+- fpdf2 (PDF generation)
+- boto3 (AWS S3 integration)
+- openpyxl (Excel handling)
+- Google Gmail API (optional email automation)
 
-│ └── config.json # konfiguracja konta e-mail
+---
 
-├── secret/
+## 📁 Project Structure
 
-│ ├── client_secret.json # klucze Gmail API (NIE WCHODZI DO GIT)
+project/ ├── src/ │   └── raport\_generator.py        # PDF generation + AWS upload ├── gui/ │   └── dashboard.py               # Tkinter GUI ├── config/ │   └── config.json                # AWS + app configuration ├── secret/ │   ├── client\_secret.json         # Gmail API credentials (ignored in Git) │   └── token.json                 # OAuth token ├── font/ │   ├── DejaVuSans.ttf │   └── DejaVuSans-Bold.ttf ├── screenshots/ │   ├── gui.png │   ├── pdf\_report.png │   ├── chart.png │   └── s3\_popup.png ├── README.md └── requirements.txt
 
-│ └── token.json # token autoryzacji Gmail
+---
 
-├── font/
+## ⚙️ Installation
 
-│ ├── DejaVuSans.ttf
+```bash
+pip install -r requirements.txt
+```
 
-│ └── DejaVuSans-Bold.ttf
+---
 
-├── README.md
+## 🔐 Configuration
 
-└── requirements.txt # wszystkie paczki Python
+### config/config.json
 
+```json
+{
+  "sender_email": "your_email@gmail.com",
+  "bucket_name": "your-s3-bucket",
+  "access_key": "AWS_ACCESS_KEY",
+  "secret_key": "AWS_SECRET_KEY",
+  "file_name_pdf": "raport_sprzedazy.pdf",
+  "pdf_path": "../raport_sprzedazy.pdf"
+}
+```
 
-Instrukcja użycia
+---
 
-- Instalacja zależności:
- -  pip install -r requirements.txt
-- Konfiguracja Gmail API:
- -  Umieść swój client_secret.json w folderze secret/
-- Utwórz config.json w folderze config/ z adresem nadawcy:
-    {
-    "sender_email": "twoj.email@gmail.com"
-    }
-- Uruchom GUI:
+## ▶️ How to Run
 
+### Start GUI
+
+```bash
 python gui/dashboard.py
+```
 
-- Wybór pliku Excel:
+---
 
-Kliknij „Wybierz plik” lub przeciągnij plik Excel do okna
+## 📌 Usage Flow
 
-Sprawdź podstawowe statystyki w panelu informacyjnym
+1. Select or drag & drop Excel file
+2. View automatic sales summary
+3. Click **Generate PDF**
+4. Report is created and uploaded to AWS S3
+5. Popup appears with options:
+   - Open report in browser 🌐
+   - Copy link 📋
+   - Close ❌
 
-- Generowanie PDF:
+---
 
-Kliknij „Generuj PDF” → raport zostanie wygenerowany i wysłany mailem
+## 🔥 Key Highlights (for recruiters)
 
-Wymagania
+- End-to-end automation pipeline (Excel → Cloud → PDF)
+- AWS S3 integration with secure presigned URLs
+- Interactive desktop GUI (Tkinter)
+- Real-world data processing workflow
+- Production-style project structure
+- Clean separation of backend, UI, and cloud logic
 
-Python >= 3.10
+---
 
-- Biblioteki Python:
+## 📈 Future Improvements
 
-pandas
-matplotlib
-fpdf2
-yagmail
-google-auth
-google-auth-oauthlib
-google-api-python-client
-tkinterdnd2
-openpyxl
+- Deploy as web app (FastAPI / Streamlit)
+- Add database storage (PostgreSQL)
+- Docker containerization
+- CI/CD pipeline (GitHub Actions)
+- Advanced AI-generated insights (OpenAI integration)
+
+---
+
+## 🏆 Author
+
+Python Automation & Cloud Project\
+Focused on Data Engineering, RPA and Cloud Integration
+
